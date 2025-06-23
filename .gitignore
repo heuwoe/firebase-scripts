@@ -154,3 +154,6 @@ service-account.json
 **/firebase-config.js
 **/firebase-config.ts
 **/firebase-config.json
+
+# prevent users from accidentally commiting the users.json file
+users.json

@@ -134,3 +134,23 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+
+# Common service account keys
+firebase-adminsdk-*.json
+serviceAccountKey.json
+service-account.json
+*.firebase.json
+*.firebase-adminsdk.json
+
+# General JSON in sensitive directories
+**/serviceAccount*.json
+**/firebase*.json
+
+# Firebase config files at any level
+**/firebaseConfig.js
+**/firebaseConfig.ts
+**/firebaseConfig.json
+**/firebase-config.js
+**/firebase-config.ts
+**/firebase-config.json

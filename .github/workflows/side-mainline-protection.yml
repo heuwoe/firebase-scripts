@@ -1,0 +1,34 @@
+name: Recursive Branch Parent-Child Protection
+
+on:
+  pull_request:
+    branches-ignore:
+      - 'main'  # No PRs to main, main will only be used to create new branches.
+
+jobs:
+  check_parent:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate branch hierarchy
+        run: |
+          echo "Base branch: ${{ github.base_ref }}"
+          echo "Head branch: ${{ github.head_ref }}"
+
+          # Allow PRs to main? Nope.
+          if [ "${{ github.base_ref }}" = "main" ]; then
+            echo "PRs to main are not allowed."
+            exit 1
+          fi
+
+          # Extract parent from head branch by removing last dash segment
+          parent="${{ github.head_ref }}"
+          parent="${parent%-*}"  # remove last dash and part after it
+
+          echo "Expected parent: $parent"
+
+          if [ "$parent" != "${{ github.base_ref }}" ]; then
+            echo "❌ Invalid parent! Only direct parent allowed."
+            exit 1
+          fi
+
+          echo "✅ Parent-child relationship valid."
